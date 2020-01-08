@@ -56,3 +56,18 @@ insert into money_tbl_02(custno,salenol,pcost,amount,price,pcode,sdate)
 values(100004,20160009,600,1,600,'A006','20160104');
 insert into money_tbl_02(custno,salenol,pcost,amount,price,pcode,sdate)
 values(100004,20160010,3000,1,3000,'A007','20160106');
+
+select * from member_tbl_02;
+
+	select custno,sum(price) as hap
+	from money_tbl_02
+	group by custno;
+
+	select AA.custno,AA.hap,BB.custname,BB.grade
+	from(		
+		select custno,sum(price) as hap
+		from money_tbl_02
+		group by custno
+			)AA join member_tbl_02  BB
+			on AA.custno=BB.custno
+			order by AA.hap;

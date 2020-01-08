@@ -52,7 +52,7 @@ footer{
 	
 	if(cnt==0){
 		out.print(" <script> ");
-		out.print(" alert('회원수정이 실패했습니다.'); ");
+		out.print(" alert('회원정보 수정이 실패했습니다.'); ");
 		out.print(" history.back();");
 		out.print(" </script> ");
 	}else{

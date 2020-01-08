@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>regList.jsp</title>
+<title>List.jsp</title>
 <style>
 header{
  background-color: skyblue

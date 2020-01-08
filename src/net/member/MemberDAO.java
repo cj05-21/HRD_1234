@@ -106,4 +106,35 @@ public class MemberDAO {
 		}catch(Exception e){System.out.println("회원 수정 실패"+e);}
 		return cnt;
 	}
-}
+	
+		public ArrayList<MemberDTO> salelist(){
+			ArrayList<MemberDTO> list =null;
+			try{
+				Connection con = DBOpen.getConnection();
+				StringBuilder sql=new StringBuilder();
+				sql.append(" select AA.custno,AA.hap,BB.custname,BB.grade ");
+				sql.append(" from(		");
+				sql.append("	 select custno,sum(price) as hap ");
+				sql.append("	 from money_tbl_02 ");
+				sql.append("	 group by custno ");
+				sql.append(" )AA join member_tbl_02  BB ");
+				sql.append(" on AA.custno=BB.custno ");
+				sql.append(" order by AA.hap desc ");
+				
+				PreparedStatement pstmt=con.prepareStatement(sql.toString());
+				ResultSet rs=pstmt.executeQuery();
+				if(rs.next()){
+					list=new ArrayList<MemberDTO>();
+					do{
+						MemberDTO dto=new MemberDTO();
+						dto.setCustno(rs.getInt("custno"));
+						dto.setHap(rs.getInt("hap"));
+						dto.setCustname(rs.getString("custname"));
+						dto.setGrade(rs.getString("grade"));
+						list.add(dto);
+					}while(rs.next());
+				}
+			}catch(Exception e){System.out.println("목록 조회 실패"+ e);}
+			return list;
+		}//list end
+	}
