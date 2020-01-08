@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="net.member.*" %> 
+<jsp:useBean id="dto" class="net.member.MemberDTO"></jsp:useBean>
+<jsp:useBean id="dao" class="net.member.MemberDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>regForm.jsp</title>
+<title>regUpdate.jsp</title>
 <style>
 header{
  background-color: skyblue
@@ -68,41 +71,44 @@ footer{
 <section>
 <%
 	request.setCharacterEncoding("UTF-8");
+	int custno=Integer.parseInt(request.getParameter("custno"));
+	
+	dto=dao.select(custno);
 %>
-<h2>홈쇼핑 회원 등록</h2>
-<form method="post" action="regProc.jsp" onsubmit="return send(this);">
+<h2>홈쇼핑 회원 정보 수정</h2>
+<form method="post" action="regUpdateProc.jsp" onsubmit="return send(this);">
 <table border="1">
 	<tr>
 		<th>회원번호(자동발생)</th>
-		<td><input type="text" value="" name="custno"></td>
+		<td><input type="text" value="<%=dto.getCustno()%>" name="custno"></td>
 	</tr>
 	<tr>
 		<th>회원성명</th>
-		<td><input type="text" value="" name="custname"></td>
+		<td><input type="text" value="<%=dto.getCustname()%>" name="custname"></td>
 	</tr>
 	<tr>
 		<th>회원전화</th>
-		<td><input type="text" value="" name="phone"></td>
+		<td><input type="text" value="<%=dto.getPhone()%>" name="phone"></td>
 	</tr>
 	<tr>
 		<th>회원주소</th>
-		<td><input type="text" value="" name="address"></td>
+		<td><input type="text" value="<%=dto.getAddress() %>" name="address"></td>
 	</tr>
 	<tr>
 		<th>가입일자</th>
-		<td><input type="text" value="" name="joindate"></td>
+		<td><input type="text" value="<%=dto.getJoindate().substring(0,10)%>" name="joindate"></td>
 	</tr>
 	<tr>
 		<th>고객등급[A:VIP,B:일반,C:직원]</th>
-		<td><input type="text" value="" name="grade"></td>
+		<td><input type="text" value="<%=dto.getGrade()%>" name="grade"></td>
 	</tr>
 	<tr>
 		<th>도시코드</th>
-		<td><input type="text" value="" name="city"></td>
+		<td><input type="text" value="<%=dto.getCity() %>" name="city"></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="submit" value="등록">
+			<input type="submit" value="수정">
 			<a href="regList.jsp"><input type="button" value="조회"></a>
 		</td>
 	</tr>
